@@ -11,9 +11,12 @@ import { increment, incrementTypes } from "@/store/pokemons";
 import { RootState } from "@/store";
 import { useEffect, useState } from "react";
 
-const NavbarItem = ({name, icon}: NavbarItemProps) => {
+const NavbarItem = ({name, icon, link}: NavbarItemProps) => {
+
+    const router = useRouter();
+
     return(
-      <Flex flexDirection="column" ml="6" alignItems="center" >
+      <Flex flexDirection="column" cursor="pointer" onClick={()=>router.push(link)} ml="6" alignItems="center" >
         <Icon as={icon} color="white" fontSize="2xl" />
         <Text color="white" mt="1" >{name}</Text>
       </Flex>
@@ -106,8 +109,8 @@ export default function Navbar(){
                     <Input type='tel' value={search} onKeyDown={handleKeyDown} onChange={(e)=>setSearch(e.target.value)} size="lg" bg="white" placeholder='Search by name (Press Enter)' />
                 </InputGroup>
                 <Flex display={["none", "flex", "flex"]} >
-                    <NavbarItem name="Linkedin" icon={BsLinkedin} />
-                    <NavbarItem name="Profile" icon={FaUserTie} />
+                    <NavbarItem name="Linkedin" icon={BsLinkedin} link="https://www.linkedin.com/in/tiagowl/" />
+                    <NavbarItem name="Profile" icon={FaUserTie} link="https://profile-next-alpha.vercel.app/" />
                 </Flex>
             </Flex>
             <Flex display={["none", "flex", "flex"]} h="14" bg="gray.600" alignItems="center" justifyContent="center" >
@@ -129,8 +132,8 @@ export default function Navbar(){
                     <Input value={search} mb="4" onKeyDown={handleKeyDown} onChange={(e)=>setSearch(e.target.value)} size="lg" bg="white" placeholder='Search by name (Press Enter)' />
                     <Divider/>
                     <Flex mt="4" mb="4" >
-                        <NavbarItem name="Linkedin" icon={BsLinkedin} />
-                        <NavbarItem name="Profile" icon={FaUserTie} />
+                        <NavbarItem name="Linkedin" icon={BsLinkedin} link="https://www.linkedin.com/in/tiagowl/" />
+                        <NavbarItem name="Profile" icon={FaUserTie} link="https://profile-next-alpha.vercel.app/" />
                     </Flex>
                     <Divider mb="48" />
                     <Flex h="14" flexDirection="column" alignItems="flex-start" justifyContent="center" >
