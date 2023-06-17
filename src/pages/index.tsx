@@ -13,7 +13,7 @@ export default function Home() {
 
   const dispatch = useDispatch();
   const data = useSelector((state: RootState)=> state);
-  const [url, setUrl] = useState("/pokemon?limit=6");
+  const [url, setUrl] = useState("/pokemon?limit=8");
   const [page, setPage] = useState(1);
 
   const fetchData = async (url: string) => {
@@ -61,8 +61,8 @@ export default function Home() {
 
   return (
     <Main>
-      <Flex flexWrap="wrap" maxH="auto" >
-        {data?.pokemons?.loading === true ? <Spinner margin="0 auto" mt="15rem" /> 
+      <Flex flexWrap="wrap" maxH="auto" minH="20rem" >
+        {data?.pokemons?.loading === true ? <Spinner margin="0 auto" mt="15rem" mb="20rem" /> 
         : 
         data?.pokemons?.data?.results?.map((pokemon)=>(
           <PokeCard data={pokemon} />

@@ -1,5 +1,5 @@
 import Main from "@/components/Main";
-import { Divider, Flex, Image, List, ListIcon, ListItem, Text } from "@chakra-ui/react";
+import { Circle, Divider, Flex, Image, List, ListIcon, ListItem, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import axios from "../services/api";
 import { useEffect } from "react";
@@ -29,9 +29,17 @@ export default function Item(){
 
     return(
         <Main cardItem >
-            <Flex w="100%" pt="5" flexDirection={["column", "row", "row"]} >
-                <Image mr="10" w={["md","lg","lg"]} borderRadius="lg" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${router.query.id}.png`} alt='Dan Abramov' />
-                <Flex w="100%" flexDirection="column" >
+            <Flex w="100%" pt="8" flexDirection={["column", "row", "row"]} >
+            <Circle size="350px" bg="gray.200" margin="0 auto" >
+              <Image
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${router?.query?.id}.png`}
+                borderRadius='lg'
+                width="72"
+                height="72"
+                
+              />
+            </Circle>
+                <Flex w="50%" flexDirection="column" >
                     <Text fontSize="3xl" mb="3" >{data?.name}</Text>
                     <Divider mb={["7","20","20"]} />
                     <List spacing={3}>

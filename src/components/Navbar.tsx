@@ -1,13 +1,13 @@
 import { NavbarItemProps } from "@/types/Navbar";
 import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
-import { Flex, InputGroup, InputLeftElement, Input, Text, Icon, Square, useDisclosure, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Divider } from "@chakra-ui/react";
+import { Flex, InputGroup, InputLeftElement, Input, Text, Icon, Square, useDisclosure, Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, Divider, Container } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { BsLinkedin } from "react-icons/bs";
 import { FaUserTie } from "react-icons/fa";
 import { MdCatchingPokemon } from "react-icons/md";
 import axios from "../services/api";
 import { useDispatch, useSelector } from "react-redux";
-import { increment, incrementTypes } from "@/store/pokemons";
+import { increment, incrementTypes, setLoading } from "@/store/pokemons";
 import { RootState } from "@/store";
 import { useEffect, useState } from "react";
 
@@ -42,6 +42,9 @@ export default function Navbar(){
     }
 
     const fetchPokemonByType = async(url: string) => {
+
+        dispatch(setLoading(true));
+
         const response = await axios.get(url);
 
         const pokemons = response?.data?.pokemon?.map((pokemon: {slot: number; pokemon:{name: string, url: string}})=>{
@@ -56,6 +59,7 @@ export default function Navbar(){
         }
 
         dispatch(increment(data));
+        dispatch(setLoading(false));
     }
 
     useEffect(()=>{
@@ -93,9 +97,9 @@ export default function Navbar(){
 
     return(
         <>
-            <Flex w="100%" h="20" pl={["4","24","24"]} pr={["4","36","36"]} bg="black" alignItems="center" justifyContent={["space-between","space-evenly","space-evenly"]} >
+            <Flex w="100%" h="20" pl={["4","24","24"]} pr={["4","36","36"]} bg="red.600" alignItems="center" justifyContent={["space-between","space-evenly","space-evenly"]} >
                 <Flex onClick={()=>router.push("/")} cursor="pointer">
-                    <MdCatchingPokemon color='white' size={40}  />
+                    <MdCatchingPokemon color='white' onClick={()=>router.push("/")} size={40}  />
                     <Text color="white" fontWeight="bold" fontSize="2xl" >PokeApi</Text>
                 </Flex>
                 <Square size={10} display={["flex", "none", "none"]} cursor="pointer" onClick={onOpen} borderRadius="lg" border="1px solid" borderColor="gray.400" >
@@ -113,9 +117,9 @@ export default function Navbar(){
                     <NavbarItem name="Profile" icon={FaUserTie} link="https://profile-next-alpha.vercel.app/" />
                 </Flex>
             </Flex>
-            <Flex display={["none", "flex", "flex"]} h="14" bg="gray.600" alignItems="center" justifyContent="center" >
+            <Flex display={["none", "flex", "flex"]} h="14" bg="gray.200" alignItems="center" justifyContent="center" >
                 {types?.results?.map((type)=>(
-                    <Text color="white" fontSize="lg" mr="6" cursor="pointer" onClick={()=>fetchPokemonByType(type?.url)} fontWeight="bold" >{type?.name}</Text>
+                    <Text color="gray.500" fontSize="lg" mr="6" cursor="pointer" onClick={()=>fetchPokemonByType(type?.url)} fontWeight="bold" >{type?.name}</Text>
                 ))}
             </Flex>
             <Drawer
@@ -125,7 +129,7 @@ export default function Navbar(){
                 size="xs"
             >
                 <DrawerOverlay />
-                <DrawerContent bg="black" >
+                <DrawerContent bg="red.600" >
                 <DrawerCloseButton />
 
                 <DrawerBody pt="12" >
